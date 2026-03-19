@@ -98,52 +98,170 @@ body {
     display: none !important;
 }
 
-/* --- Opening Screen --- */
+/* --- Cinematic Opening Screen 3D --- */
 #opening-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: var(--white);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: #050505;
     z-index: 1000;
-    transition: opacity 1.5s ease, transform 1.5s ease;
+    transition: opacity 2s ease, transform 2s ease;
+    overflow: hidden;
 }
 
 #opening-screen.fade-out {
     opacity: 0;
-    transform: scale(1.1);
     pointer-events: none;
 }
 
-.opening-content {
-    text-align: center;
-    padding: 2rem;
+/* 3D Scene Setup */
+.scene-3d {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.subtitle {
-    font-family: var(--font-body);
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+/* Base camera animation classes applied via JS */
+.scene-3d.animate-camera .bg-layer {
+    animation: drift-bg 15s linear forwards;
+}
+
+.scene-3d.animate-camera .particles-layer {
+    animation: drift-particles 15s linear forwards;
+}
+
+@keyframes drift-bg {
+    0% { transform: translateZ(-500px) scale(1.5); }
+    100% { transform: translateZ(-400px) scale(1.5) translateY(20px); }
+}
+
+@keyframes drift-particles {
+    0% { transform: translateZ(-200px) scale(1.2); }
+    100% { transform: translateZ(-100px) scale(1.2) translateY(-30px); }
+}
+
+/* Background Layer */
+.bg-layer {
+    background: radial-gradient(circle at center, #261619 0%, #050505 80%);
+    transform: translateZ(-500px) scale(1.5);
+}
+
+/* Glow Layer */
+.glow-layer {
+    background: radial-gradient(ellipse at center, rgba(197, 160, 89, 0.1) 0%, transparent 60%);
+    z-index: 2;
+    transform: translateZ(-100px);
+}
+
+/* Content Layer */
+.content-layer {
+    z-index: 10;
+    flex-direction: column;
+}
+
+.cinematic-btn {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: none;
+    cursor: pointer;
     font-size: 1.2rem;
-    color: var(--text-light);
-    text-transform: uppercase;
+    padding: 15px 40px;
     letter-spacing: 3px;
-    margin-bottom: 1rem;
+    transition: all 0.5s ease;
 }
 
-.title {
+.cinematic-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: 1px solid var(--white);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.text-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.cinematic-text, .cinematic-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1.5s ease, transform 6s cubic-bezier(0.2, 0.8, 0.4, 1);
+}
+
+.cinematic-text {
+    font-family: var(--font-body);
+    font-size: 1.8rem;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    transform: translate(-50%, -50%) translateZ(-300px);
+    filter: blur(2px);
+}
+
+.cinematic-title {
     font-family: var(--font-heading);
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     color: var(--gold);
-    margin-bottom: 2rem;
+    transform: translate(-50%, -50%) translateZ(-300px);
+    filter: blur(2px);
+}
+
+.cinematic-text.active, .cinematic-title.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateZ(0px);
+    filter: blur(0px);
+}
+
+.cinematic-text.fade-out, .cinematic-title.fade-out {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateZ(300px);
+    transition: opacity 1s ease, transform 2s ease-in;
+    filter: blur(4px);
+}
+
+/* Intro Particles */
+.intro-particle {
+    position: absolute;
+    background-color: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold);
+    animation: float-particle 8s ease-in-out infinite;
+}
+
+@keyframes float-particle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
 }
 
 .heart {
     color: #e28793;
     font-size: 2rem;
-    animation: pulse 1.5s infinite;
+    animation: pulse 2s infinite;
     display: inline-block;
 }
 
@@ -151,45 +269,6 @@ body {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
     100% { transform: scale(1); }
-}
-
-.btn {
-    background-color: var(--gold);
-    color: var(--white);
-    border: none;
-    padding: 12px 30px;
-    font-size: 1rem;
-    font-family: var(--font-body);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
-}
-
-.btn:hover {
-    background-color: var(--gold-light);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(197, 160, 89, 0.6);
-}
-
-/* Fade In Animations for Opening */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1s forwards;
-}
-
-.delay-1 { animation-delay: 0.5s; }
-.delay-2 { animation-delay: 1s; }
-.delay-3 { animation-delay: 1.5s; }
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 /* --- Sections Common --- */

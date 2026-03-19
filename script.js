@@ -6,33 +6,108 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
     
     // Audio and Music Control Elements
-    const bgMusic = document.getElementById('bg-music');
+    const bgMusic = document.getElementById('bgMusic');
     const musicControlBtn = document.getElementById('music-control');
     const musicIcon = musicControlBtn.querySelector('i');
     
-    // Set volume to soft
-    bgMusic.volume = 0.3;
-
-    openBtn.addEventListener('click', () => {
-        // Play music on interaction
+    // Helper to fade in audio
+    function fadeInAudio(durationMs) {
+        let vol = 0;
+        const steps = 50;
+        const interval = durationMs / steps;
+        const targetVol = 0.5; // Soft romantic at 0.5
+        bgMusic.volume = 0;
         bgMusic.play().catch(e => console.log('Audio playback failed: ', e));
         
-        // Show music control
-        musicControlBtn.classList.remove('hidden');
+        const fadeInterval = setInterval(() => {
+            if (vol < targetVol) {
+                vol += targetVol / steps;
+                bgMusic.volume = Math.min(vol, targetVol);
+            } else {
+                clearInterval(fadeInterval);
+            }
+        }, interval);
+    }
 
-        // Trigger fade out
-        openingScreen.classList.add('fade-out');
+    openBtn.addEventListener('click', () => {
+        openBtn.style.transition = 'opacity 1s ease, transform 1s ease';
+        openBtn.style.opacity = '0';
+        openBtn.style.transform = 'translateZ(100px)';
         
-        // Show main content and start scroll at top
-        mainContent.classList.remove('hidden');
-        window.scrollTo(0, 0);
+        fadeInAudio(3000);
         
-        // Allow time for fade out before completely hiding it from DOM flow
+        // Trigger 3D Camera Parallax Drift
+        document.querySelector('.scene-3d').classList.add('animate-camera');
+
+        // Generate Cinematic Intro Particles
+        const introParticlesLayer = document.getElementById('intro-particles');
+        for (let i = 0; i < 30; i++) {
+            let p = document.createElement('div');
+            p.className = 'intro-particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            let size = Math.random() * 4 + 1;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.opacity = Math.random() * 0.5 + 0.1;
+            introParticlesLayer.appendChild(p);
+        }
+        
+        const text1 = document.getElementById('cinematic-text-1');
+        const text2 = document.getElementById('cinematic-text-2');
+        const text3 = document.getElementById('cinematic-text-3');
+
+        // Cinematic Sequence with requestAnimationFrame for smooth triggering
         setTimeout(() => {
-            openingScreen.style.display = 'none';
-            // Init scroll animations after opening
-            checkScroll();
-        }, 1500);
+            openBtn.style.display = 'none';
+            
+            // Step 1
+            text1.classList.remove('hidden');
+            requestAnimationFrame(() => requestAnimationFrame(() => text1.classList.add('active')));
+            
+            setTimeout(() => {
+                text1.classList.remove('active');
+                text1.classList.add('fade-out');
+                
+                // Step 2
+                setTimeout(() => {
+                    text1.classList.add('hidden');
+                    text2.classList.remove('hidden');
+                    requestAnimationFrame(() => requestAnimationFrame(() => text2.classList.add('active')));
+                    
+                    setTimeout(() => {
+                        text2.classList.remove('active');
+                        text2.classList.add('fade-out');
+                        
+                        // Step 3
+                        setTimeout(() => {
+                            text2.classList.add('hidden');
+                            text3.classList.remove('hidden');
+                            requestAnimationFrame(() => requestAnimationFrame(() => text3.classList.add('active')));
+                            
+                            // Finish and reveal main content
+                            setTimeout(() => {
+                                openingScreen.classList.add('fade-out');
+                                mainContent.classList.remove('hidden');
+                                window.scrollTo(0, 0);
+                                musicControlBtn.classList.remove('hidden');
+
+                                setTimeout(() => {
+                                    openingScreen.style.display = 'none';
+                                    checkScroll();
+                                }, 2000);
+                                
+                            }, 4500); // Linger longer on Title for effect
+                            
+                        }, 1500); // Let previous text fade past camera
+                        
+                    }, 4000); // Linger on text 2
+                    
+                }, 1500); // Let previous text fade past camera
+                
+            }, 3500); // Linger on text 1
+            
+        }, 1000); // Wait for button to fade out
     });
 
     // --- Music Toggle Logic ---

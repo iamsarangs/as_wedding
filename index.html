@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr Aiswarya & Sarang | Wedding Invitation</title>
+    
+    <!-- Basic SEO tags -->
+    <title>Dr Aiswarya & Sarang - Wedding Invitation</title>
+    <meta name="description" content="You are invited to celebrate the wedding of Dr Aiswarya & Sarang on 26 April 2026.">
+
+    <!-- Open Graph / Social Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://iamsarangs.github.io/as_wedding/">
+    <meta property="og:title" content="Dr Aiswarya & Sarang - Wedding Invitation">
+    <meta property="og:description" content="You are invited to celebrate the wedding of Dr Aiswarya & Sarang on 26 April 2026.">
+    <meta property="og:image" content="preview.jpg">
+
     <!-- Google Fonts for typography -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
@@ -12,8 +23,8 @@
 </head>
 <body>
     <!-- Audio Element -->
-    <audio id="bg-music" loop>
-        <source src="background-music.mp3" type="audio/mpeg">
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -26,12 +37,25 @@
     <div id="petals-container"></div>
 
     <!-- Opening Screen -->
-    <div id="opening-screen" class="screen">
-        <div class="opening-content">
-            <p class="subtitle fade-in">You Are Invited</p>
-            <p class="subtitle fade-in delay-1">To The Wedding Of</p>
-            <h1 class="title fade-in delay-2">Dr Aiswarya <span class="heart">❤️</span> Sarang</h1>
-            <button id="open-invite-btn" class="btn fade-in delay-3">Open Invitation</button>
+    <div id="opening-screen" class="screen cinematic-intro">
+        <!-- 3D Perspective Container -->
+        <div class="scene-3d">
+            <!-- Background Layer -->
+            <div class="layer bg-layer"></div>
+            <!-- Glow Layer -->
+            <div class="layer glow-layer"></div>
+            <!-- Particles Layer -->
+            <div class="layer particles-layer" id="intro-particles"></div>
+            
+            <!-- Content Layer -->
+            <div class="layer content-layer">
+                <button id="open-invite-btn" class="btn cinematic-btn">Open Invitation</button>
+                <div class="text-container">
+                    <p id="cinematic-text-1" class="cinematic-text hidden">You are invited...</p>
+                    <p id="cinematic-text-2" class="cinematic-text hidden">To witness a beautiful beginning</p>
+                    <h1 id="cinematic-text-3" class="cinematic-title hidden">Dr Aiswarya <span class="heart">❤️</span> Sarang</h1>
+                </div>
+            </div>
         </div>
     </div>
 
