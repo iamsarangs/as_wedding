@@ -1,0 +1,440 @@
+/* Color Palette & Variables */
+:root {
+    --gold: #C5A059;
+    --gold-light: #d4af37;
+    --blush: #FFE4E1;
+    --blush-light: #FFF0F5;
+    --white: #FFFFFF;
+    --text-dark: #333333;
+    --text-light: #777777;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Animations Variables */
+.hidden {
+    display: none !important;
+}
+
+/* --- Petals Animation --- */
+#petals-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    background-color: var(--blush);
+    border-radius: 15px 0 15px 0;
+    opacity: 0.6;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg) translateX(20px);
+        opacity: 0;
+    }
+}
+
+/* --- Music Controls --- */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(197, 160, 89, 0.2);
+}
+
+.music-btn:hover {
+    background-color: var(--gold);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+.music-btn.hidden {
+    display: none !important;
+}
+
+/* --- Opening Screen --- */
+#opening-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+#opening-screen.fade-out {
+    opacity: 0;
+    transform: scale(1.1);
+    pointer-events: none;
+}
+
+.opening-content {
+    text-align: center;
+    padding: 2rem;
+}
+
+.subtitle {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 2rem;
+}
+
+.heart {
+    color: #e28793;
+    font-size: 2rem;
+    animation: pulse 1.5s infinite;
+    display: inline-block;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.btn {
+    background-color: var(--gold);
+    color: var(--white);
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+}
+
+.btn:hover {
+    background-color: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(197, 160, 89, 0.6);
+}
+
+/* Fade In Animations for Opening */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s forwards;
+}
+
+.delay-1 { animation-delay: 0.5s; }
+.delay-2 { animation-delay: 1s; }
+.delay-3 { animation-delay: 1.5s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Sections Common --- */
+.section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+    position: relative;
+    text-align: center;
+}
+
+.bg-blush {
+    background-color: var(--blush-light);
+}
+
+.card {
+    background: var(--white);
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+/* Scroll Animations */
+.fade-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.fade-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Hero Section --- */
+#hero {
+    background: linear-gradient(to bottom, var(--white), var(--blush-light));
+}
+
+.hero-names {
+    font-family: var(--font-heading);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.bride-name {
+    font-size: 4rem;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.ampersand {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin: 0.5rem 0;
+}
+
+.groom-name {
+    font-size: 3.5rem;
+    color: var(--text-dark);
+}
+
+.hero-date {
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+}
+
+.couple-image-container {
+    margin: 0 auto;
+    width: 250px;
+    height: 350px;
+    border-radius: 125px 125px 0 0;
+    border: 2px solid var(--gold);
+    padding: 10px;
+    position: relative;
+    background-color: var(--white);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.couple-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--blush);
+    border-radius: 115px 115px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    color: var(--white);
+}
+
+/* --- Message Section --- */
+.message-text {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+}
+
+.message-text strong {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.message-text.secondary {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    font-family: var(--font-body);
+    font-style: italic;
+    color: var(--text-light);
+}
+
+/* --- Wedding Details --- */
+.section-icon {
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.details-card h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.details-card .date {
+    font-size: 1.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.divider {
+    height: 1px;
+    width: 50px;
+    background-color: var(--gold);
+    margin: 1.5rem auto;
+}
+
+.details-card .venue {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+/* --- Countdown --- */
+.countdown-container h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    margin-bottom: 3rem;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.time-box {
+    background: var(--white);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
+    border: 2px solid var(--gold);
+    transition: transform 0.3s ease;
+}
+
+.time-box:hover {
+    transform: scale(1.05);
+}
+
+.time-box span {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--gold);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.time-box p {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    margin-top: 5px;
+}
+
+/* --- Closing Section --- */
+.closing-names {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.closing-date {
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.thank-you {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--text-dark);
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .title { font-size: 2rem; }
+    .bride-name { font-size: 3rem; }
+    .groom-name { font-size: 2.5rem; }
+    .countdown { gap: 1rem; }
+    .time-box { width: 80px; height: 80px; }
+    .time-box span { font-size: 1.5rem; }
+    .time-box p { font-size: 0.6rem; }
+    .card { padding: 2rem; }
+}
+
+@media (max-width: 480px) {
+    .bride-name { font-size: 2.5rem; }
+    .groom-name { font-size: 2rem; }
+    .time-box { width: 70px; height: 70px; }
+    .time-box span { font-size: 1.2rem; }
+    .closing-names { font-size: 2rem; }
+}
