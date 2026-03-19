@@ -346,15 +346,7 @@ body {
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--text-light);
-    margin-bottom: 0.5rem;
-}
-
-.hero-time {
-    font-size: 1rem;
-    letter-spacing: 2px;
-    color: var(--gold);
     margin-bottom: 3rem;
-    font-weight: 500;
 }
 
 .couple-image-container {
@@ -506,15 +498,7 @@ body {
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--text-light);
-    margin-bottom: 0.5rem;
-}
-
-.closing-time {
-    font-size: 1rem;
-    letter-spacing: 2px;
-    color: var(--gold);
     margin-bottom: 2rem;
-    font-weight: 500;
 }
 
 .thank-you {
