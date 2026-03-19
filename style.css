@@ -346,7 +346,15 @@ body {
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.hero-time {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: var(--gold);
     margin-bottom: 3rem;
+    font-weight: 500;
 }
 
 .couple-image-container {
@@ -411,7 +419,17 @@ body {
 .details-card .date {
     font-size: 1.5rem;
     color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+
+.details-card .time {
+    font-size: 1.2rem;
+    color: var(--text-dark);
     margin-bottom: 1.5rem;
+}
+
+.details-card .time strong {
+    color: var(--gold);
 }
 
 .divider {
@@ -488,7 +506,15 @@ body {
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.closing-time {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: var(--gold);
     margin-bottom: 2rem;
+    font-weight: 500;
 }
 
 .thank-you {
