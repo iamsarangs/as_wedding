@@ -373,6 +373,70 @@ body {
     color: var(--white);
 }
 
+/* --- Scroll Indicator --- */
+.scroll-indicator {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    z-index: 100;
+    transition: opacity 1s ease-out, transform 1s ease-out;
+    pointer-events: none;
+}
+
+.scroll-indicator.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.scroll-indicator.hidden-scroll {
+    opacity: 0 !important;
+    transition: opacity 0.5s ease !important;
+}
+
+.mouse {
+    width: 24px;
+    height: 38px;
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.wheel {
+    width: 2px;
+    height: 6px;
+    background: var(--gold);
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+    animation: scroll-wheel 1.5s infinite;
+}
+
+@keyframes scroll-wheel {
+    0% {
+        top: 6px;
+        opacity: 1;
+    }
+    100% {
+        top: 20px;
+        opacity: 0;
+    }
+}
+
+.scroll-indicator p {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+}
+
 /* --- Message Section --- */
 .message-text {
     font-family: var(--font-heading);

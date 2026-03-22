@@ -95,6 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 setTimeout(() => {
                                     openingScreen.style.display = 'none';
                                     checkScroll();
+                                    
+                                    const indicator = document.getElementById('scroll-indicator');
+                                    if(indicator) {
+                                        indicator.classList.add('visible');
+                                    }
                                 }, 2000);
                                 
                             }, 4500); // Linger longer on Title for effect
@@ -199,7 +204,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Listen for scroll events
+    const scrollIndicator = document.getElementById('scroll-indicator');
+
     window.addEventListener('scroll', () => {
         checkScroll();
+        
+        // Hide scroll indicator on scroll down
+        if (window.scrollY > 50) {
+            if (scrollIndicator) scrollIndicator.classList.add('hidden-scroll');
+        } else {
+            if (scrollIndicator) scrollIndicator.classList.remove('hidden-scroll');
+        }
     });
 });
